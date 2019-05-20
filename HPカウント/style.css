@@ -1,0 +1,12 @@
+.fine {
+    background-color: black;
+    height: 20px;
+    width: 50px;
+    margin:  5px;
+}
+.death {
+    background-color:red;
+    height: 20px;
+    width: 50px;
+    margin:  5px;
+}
