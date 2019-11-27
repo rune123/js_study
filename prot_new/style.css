@@ -1,0 +1,11 @@
+.stage{
+    width: 100%;
+    height: 480px;
+    background-image: url(img/bg_img01.png);
+}
+.buttun{
+    width: 100px;
+    height: 25px;
+    background-image: url(img/buutun.gif);
+    background-repeat: no-repeat;
+}
