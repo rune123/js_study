@@ -3,7 +3,7 @@ var count = 3; //キャラの数
 var namelist = ['rune', 'mario', 'peach','momo','cat','dog','toro'];
 
 Character = function(id,vit){ //キャラの基本データ作成
-    that =this;
+
     if(vit == 0){ //HPが0にならないようにする
        vit ++;
     }
@@ -42,8 +42,10 @@ Character.prototype = {
         chara_buttun.id = 'buttun';
         parent.appendChild(chara_buttun);
 
-        chara_buttun.getElementById("buttun").addEventListener("click",that.heel);
+        chara_buttun.addEventListener("click",this.heel);
+        console.log(chara_buttun);
 
+        //<div id="butun></div>が帰ってくるからエラー・・？変数chara_buutnがわるそ
 
     },
     hpdown: function () {
@@ -57,11 +59,15 @@ Character.prototype = {
         }
     },
     heel: function () {
-        
-                if(this.hp == 0){ //0のときには使えない
-                    this.hptext.innerHTML = "回復はできません。";
-                } else if(this.hp >= 80){ //上限を超えない処理
-                    this.hp = 100;
+        that = this;
+        console.log('that'+that);
+        console.log('this'+this);
+        console.log('thisHP'+this.hp);
+        console.log('thatHP'+that.hp);
+                if(that.hp == 0){ //0のときには使えない
+                    that.hptext.innerHTML = "回復はできません。";
+                } else if(that.hp >= 80){ //上限を超えない処理
+                    that.hp = 100;
             
                 // } else  {
                 //     this.hp += 20;　　//+20回復の処理

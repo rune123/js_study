@@ -8,4 +8,5 @@
     height: 25px;
     background-image: url(img/buutun.gif);
     background-repeat: no-repeat;
+    display: block;
 }
