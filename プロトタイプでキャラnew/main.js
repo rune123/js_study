@@ -1,164 +1,146 @@
 var characters = []; //キャラクターを入れる配列
-var count = 3; //キャラの数
+var count = 10; //キャラの数
 var namelist = ['rune', 'mario', 'peach','momo','cat','dog','toro'];
 
 Character = function(id,vit){ //キャラの基本データ作成
-
     if(vit == 0){ //HPが0にならないようにする
        vit ++;
     }
-    console.log('vit'+vit);
-    
+
     this.hp = 10* vit; //hpはvitの１０倍
-    // text.innerHTML = this.hp + "/100";
     this.maxhp =10* vit; //maxhp
-    this.id = id + 1;
+    this.chara_id = id + 1; //キャラ個別にIDを
 
 
-    var r = Math.floor(Math.random() * namelist.length); // 0~2の値
+    var r = Math.floor(Math.random() * namelist.length);   //名前を配列から。同じ名前を選ばないようにしたい
     this.name = namelist[r];
 
-//同じ名前を選ばないようにしたい
+    var that = this;
+
+    //HTML生成
+    // <div class="character_space" id="キャラのid">
+    //     <div class="name"></div>
+    //     <div id="chara_img+キャラのID" class="fine"></div>
+    //     <div id="hp"><span id="text_hp"></span><span id="max_hp"></span></div>
+    //     <div id="buttun"></div>
+    // </div>
 
 
+
+    this.element_chara = document.createElement('div');
+    this.element_chara.id = 'character_space'+this.chara_id;
+    this.element_chara.className = 'character_space';
+
+    this.element_chara_name = document.createElement('div');
+    this.element_chara_name.className = 'name';
+    this.element_chara_name.innerHTML = this.name;
+
+    this.element_chara_img = document.createElement('div');
+    this.element_chara_img.id = 'chara_img'+this.chara_id;
+    this.element_chara_img.className = 'fine';
+
+    this.element_chara_hp = document.createElement("div");
+    this.element_chara_hp.classList.add('hp');
+    this.element_chara_hp.innerHTML = '■<span id="text'+ this.chara_id + '">' + this.hp + '</span>/<span class="max_hp">' + this.maxhp + '</span>';
+
+    this.chara_buttun = document.createElement('div');
+    this.chara_buttun.id = 'buttun';
+
+    this.element_chara.appendChild(this.element_chara_name);
+    this.element_chara.appendChild(this.element_chara_img);
+    this.element_chara.appendChild(this.element_chara_hp);
+    this.element_chara.appendChild(this.chara_buttun);
+
+    // HTML側のメインステージに追加
+    document.getElementById('main_stage').appendChild(this.element_chara);
+
+    // this.chara_buttun.addEventListener("click",function(event){
+    //     // var that = this;
+
+    //     if(that.hp == 0){ //0のときには使えない
+    //         that.hptext.innerHTML = "回復はできません。";
+    //         } else   {
+    //             if(that.hp >= that.maxhp - 20){ //上限を超えない処理
+    //                 that.hp = that.maxhp;
+    //             } else {
+    //             that.hp += 20;　　//+20回復の処理
+
+    //         // if(this.hp >= 20 ) {
+    //         //     chara_img.classList.replace('near_death' , 'fine')　//瀕死
+    //         // }
+    //             }
+    //      }
+
+
+    //  });
+    this.chara_buttun.addEventListener("click",function(event){that.heel(event)});
 }
 
 Character.prototype = {
-    txtupdate: function () {
-        var chara_main = document.createElement('div');
-        chara_main.id = 'character_space';
-        chara_main.className = this.id;
-        // 親要素を取得
-        var parent = document.getElementById('main_stage');
-        // 要素を追加
-        main_stage.appendChild(chara_main);
-        var div_element = document.createElement("div");
-        div_element.classList.add('hp');
-        div_element.innerHTML = '■'+this.name + '■<span id="text'+ this.id + '">' + this.hp + '</span>/' + this.maxhp;
-        var parent_object = document.getElementById("main_stage");
-        main_stage.appendChild(div_element);
 
-        var chara_buttun = document.createElement('div');
-        chara_buttun.id = 'buttun';
-        parent.appendChild(chara_buttun);
+    hpdown: function (event) {
+        var that = this;
 
-        chara_buttun.addEventListener("click",this.heel);
-        console.log(chara_buttun);
-
-        //<div id="butun></div>が帰ってくるからエラー・・？変数chara_buutnがわるそ
-
-    },
-    hpdown: function () {
-        if(this.hp >=1){
-            this.hp --; //--で数字減らす
-            this.hptext = document.getElementById("text" + this.id);
-            this.hptext.innerHTML = this.hp;
-        }else if (this.hp == 0){
+        // console.log(that.hp);
+        if(that.hp >=1){
+            that.hp --; //--で数字減らす
+            that.hptext = document.getElementById("text" + this.chara_id);
+            that.hptext.innerHTML = that.hp;
+        }else if (that.hp == 0){
             this.hptext.innerHTML = "死にました";
         
         }
     },
-    heel: function () {
-        that = this;
-        console.log('that'+that);
+    heel: function (event) {
+        var that= this;
+
         console.log('this'+this);
         console.log('thisHP'+this.hp);
+        console.log('that'+that);
         console.log('thatHP'+that.hp);
-                if(that.hp == 0){ //0のときには使えない
-                    that.hptext.innerHTML = "回復はできません。";
-                } else if(that.hp >= 80){ //上限を超えない処理
-                    that.hp = 100;
-            
-                // } else  {
-                //     this.hp += 20;　　//+20回復の処理
-                //     if(this.hp >= 20 ) {
-                //         chara_img.classList.replace('near_death' , 'fine')　//瀕死
-                //     }
+        if(this.hp == 0){ //0のときには使えない
+            this.hptext.innerHTML = "回復はできません。";
+            } else   {
+                if(this.hp >= this.maxhp - 20){ //上限を超えない処理
+                    this.hp = this.maxhp;
+                } else {
+                this.hp += 10;　　//+20回復の処理
+
+            // if(this.hp >= 20 ) {
+            //     chara_img.classList.replace('near_death' , 'fine')　//瀕死
+            // }
                 }
+         }
         
 
 
 
-    },
-    main_html : function() {
-
-        // <div id="character_wrapper">
-    //     <div id="name"></div>
-    //     <div id="chara_img" class="fine"></div>
-    //     <div id="hp"><span id="text_hp"></span><span id="max_hp"></span></div>
-    //     <div id="buttun"></div>
-    // </div>
-        // 要素を作成
-        var chara_main = document.createElement('div');
-        chara_main.id = 'character_wrapper';
-        chara_main.className = this.characterId;
-        // 親要素を取得
-        var parent = document.getElementById('main_stage');
-        // 要素を追加
-        parent.appendChild(chara_main);
-
-        var chara_name = document.createElement('div');
-        chara_name.id = 'name' + this.id;
-        parent.appendChild(chara_name);
-        var element = document.getElementById("name" + this.id);
-        element.innerHTML = that.characterId;
-
-        console.log('id' + that.characterId);
-        console.log('self' + this.id);
-
-        var chara_img = document.createElement('div');
-        chara_img.id = 'chara_img';
-        chara_img.className = 'fine';
-        parent.appendChild(chara_img);
-
-        var chara_hp = document.createElement('div');
-        chara_hp.id = 'hp';
-        chara_img.className = 'fine';
-        parent.appendChild(chara_hp);
-
-        var chara_hp = document.createElement('span');
-        chara_hp.id = 'text_hp';
-
-        var parent_hp = document.getElementById('hp'); //hpの中につくりたいので
-        parent_hp.appendChild(chara_hp);
-
-        var chara_maxhp = document.createElement('span');
-        chara_maxhp.id = 'max_hp';
-        parent_hp.appendChild(chara_maxhp);
-
-        var chara_buttun = document.createElement('div');
-        chara_buttun.id = 'buttun';
-        parent.appendChild(chara_buttun);
-
     }
+
 
 
 
 }
 
 for(var i = 0; i < count; i++){
-    var random = Math.floor( Math.random() * 11 );
+    var random = Math.floor( Math.random() * 11 )+2;
     characters.push(new Character(i, random));
     console.log(random);
     
 }
 
-function txt(){
-    for(var i = 0; i < count; i++){
-        characters[i].txtupdate();
-    }
-}
+
 window.setInterval(hp_down, 800);
 function hp_down(){
     for(var i = 0; i < count; i++){
         characters[i].hpdown();
     }
 }
-txt();
 
-// window.setInterval(hpdown, 1000);　//hp減らす処理
-// function hpdown(){
-//     for(var i = 0; i < count; i++){
-//         characters[i].hpdown();
-//     }
-// }
+var parent = document.getElementById('main_stage');
+all_buttun = document.createElement('div');
+all_buttun.id = 'all_buttun';
+parent.appendChild(all_buttun);
+
+
+all_buttun.addEventListener("click",function(event){Character.prototype.heel(event)});
