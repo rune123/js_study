@@ -1,0 +1,41 @@
+body{
+    background-color: midnightblue;
+}
+#stage{
+    display: flex;
+    width: 700px;
+    margin: auto;
+}
+.snow {
+    top: -40px;
+	width: 30px;/*幅*/
+	height: 30px;/*高さ*/
+    border-radius: 50%;/*角丸*/
+    background-color: #fff;
+    box-shadow: 0 0 10px #fff;
+    position: relative;
+    margin: 5px;
+}
+
+.move {
+    animation-name: move-keyframes;
+    animation-duration: 2000ms;
+    animation-delay: 0ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    transform-origin: 0 0;
+  }
+  @keyframes move-keyframes {
+    0% {transform:translate(-10px, -10px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+    10.71% {transform:translate(-3.3061px, 26.1429px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+    20.24% {transform:translate(-22.2812px, 49.381px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+    30.95% {transform:translate(-65.424px, 75.5238px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+    40.48% {transform:translate(-81.678px, 98.7619px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+    50% {transform:translate(-84px, 122px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+    60.71% {transform:translate(-80.7726px, 146.6429px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+    70.24% {transform:translate(-62.2493px, 168.5476px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+    80.95% {transform:translate(-20.1337px, 193.1905px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+    90.48% {transform:translate(-4.2667px, 215.0952px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+    100% {transform:translate(-2px, 237px) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translate(-50%, -50%);}
+  }
